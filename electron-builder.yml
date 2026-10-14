@@ -1,0 +1,57 @@
+appId: com.zhitu.app
+productName: 织图
+copyright: 织图
+directories:
+  output: release
+  buildResources: build
+
+# 关键：关掉 electron-builder 的"重新编译原生模块"步骤。
+#
+# better-sqlite3 自带全平台预编译文件，而且是 N-API 格式——
+# 同一个文件在 Node 和 Electron 里都能用，我们已经用冒烟测试验证过了。
+# 如果这里开着，electron-builder 会去调 node-gyp 重新编译，
+# 那需要装几个 G 的 Visual Studio 编译工具，而结果和预编译文件完全一样。
+npmRebuild: false
+
+files:
+  - out/**/*
+  - scripts/attachment-worker.cjs
+  - package.json
+  - '!**/*.map'
+asarUnpack:
+  - '**/node_modules/better-sqlite3/**'
+  - '**/node_modules/@napi-rs/canvas/**'
+  - '**/node_modules/@napi-rs/canvas-win32-x64-msvc/**'
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: '${productName}-安装包-${version}.${ext}'
+nsis:
+  # 安装向导模式：会问用户"装到哪个目录"，并显示安装进度。
+  #
+  # 如果改成 oneClick: true，就变成双击即装、不问任何问题，
+  # 自动装到 %LOCALAPPDATA%\Programs\<应用名>。
+  # 那种方式对完全不懂电脑的人更省事，但用户找不到装到了哪里，
+  # 所以这里选向导模式。
+  oneClick: false
+
+  # 允许用户改安装目录（这是 oneClick: false 时才生效的选项）
+  allowToChangeInstallationDirectory: true
+
+  # 默认安装位置：用户目录，不需要管理员权限，不弹 UAC
+  perMachine: false
+  allowElevation: false
+
+  runAfterFinish: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: 织图
+  deleteAppDataOnUninstall: false
+
+  # 只显示中文，不弹语言选择框（省掉一个用户看不懂的步骤）
+  installerLanguages:
+    - zh_CN
+  language: '2052'
+publish: null

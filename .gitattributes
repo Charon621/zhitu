@@ -1,0 +1,9 @@
+# Keep fixture and image bytes intact across Windows and other platforms.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary

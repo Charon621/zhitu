@@ -1,0 +1,55 @@
+{
+  "name": "zhitu",
+  "version": "0.11.2",
+  "private": true,
+  "description": "织图 —— 把好奇心织成一张地图",
+  "author": "zhitu",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test:stream": "node scripts/stream-regression.cjs",
+    "test:history": "node scripts/history-regression.cjs",
+    "test:library": "node scripts/library-regression.cjs",
+    "test:completeness": "node scripts/completeness-regression.cjs",
+    "smoke": "electron-vite build && electron scripts/smoke.cjs",
+    "dist": "electron-vite build && electron-builder --win --config electron-builder.yml",
+    "prompt-check": "electron scripts/prompt-check.cjs",
+    "postinstall": "node scripts/postinstall.cjs"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@napi-rs/canvas": "^1.0.9",
+    "better-sqlite3": "^13.0.3",
+    "cytoscape": "^3.34.3",
+    "dompurify": "^3.2.4",
+    "exceljs": "^4.4.0",
+    "hono": "^4.6.14",
+    "jszip": "^3.10.1",
+    "mammoth": "^1.12.3",
+    "marked": "^15.0.6",
+    "pdfjs-dist": "^6.3.289",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.4",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^38.8.6",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^5.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  },
+  "allowScripts": {
+    "electron@38.8.6": true,
+    "electron-winstaller@5.4.0": true,
+    "esbuild@0.25.12": true
+  }
+}
